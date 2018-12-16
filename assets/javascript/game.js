@@ -31,10 +31,10 @@ const winGame = ()=> {
 }
 //lose game function
 const loseGame = () =>{
-    alert("FUCK OFF RANDY YOU LOSE MR FUCKING FUCKITY CHEESBURGER WALRUS");
+    alert("HAHAHAH YOU LOSE! INTO THE PIT YOU GO");
     losses++;
     lossesText.textContent = (losses); 
-    
+    loseAudio.play();
 }
 
 const newGame = () =>{
@@ -83,7 +83,7 @@ document.onkeyup = function(){
         }
         if (chosenWord === rightLetter.join('') && guessesRemaining >= 0) {
             winGame(); 
-            
+            newGame();
         }
     }
     //if user is wrong
@@ -100,6 +100,7 @@ document.onkeyup = function(){
     }
     if (guessesRemaining <= 0){
         loseGame();
+        newGame();
     }
 
 }
