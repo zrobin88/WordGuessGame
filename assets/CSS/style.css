@@ -78,3 +78,13 @@ button{
     height: 50px;
 
 }
+
+.button{
+    font-family: 'Creepster', cursive;
+    font-size: 18px;
+    color: black;
+    background:#fd2727;
+    border: solid 3px black;
+    width: 25%;
+    height: 50px;
+}

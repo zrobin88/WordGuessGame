@@ -2,7 +2,7 @@ const wordArray = ['metallica', 'megadeth', 'anthrax', 'slayer', 'testament', 'p
 
 let chosenWord = wordArray[Math.floor(Math.random() * wordArray.length)]; 
     console.log(chosenWord); 
-
+let hiddenArray = [];
 let placeholder = ""; 
 let wins = 0; 
 let losses = 0;
@@ -11,7 +11,7 @@ let guessesRemaining = 6;
 let rightLetter = [];
 let wrongLetter = []; 
 let loseAudio = new Audio("assets/audio/evil.mp3");
-let underScoreCount = chosenWord.length; 
+ const userGuess = [];
 
 let docUnderscore = document.getElementById("underscore");
 let winsText = document.getElementById("wins");
@@ -25,9 +25,7 @@ const winGame = ()=> {
     wins++;
     winsText.textContent = (wins);
     alert('YOU WIN!');
-    var container = document.getElementById("underscore");
-    var content = container.innerHTML;
-    container.innerHTML= content; 
+    
 }
 //lose game function
 const loseGame = () =>{
@@ -35,10 +33,11 @@ const loseGame = () =>{
     losses++;
     lossesText.textContent = (losses); 
     loseAudio.play();
+    
 }
 
 const newGame = () =>{
-    let reloadWord = location.reload(chosenWord); 
+    location.reload(); 
     guessesRemaining = 6;
 }
 
@@ -48,39 +47,39 @@ let guessCounter = () =>{
     guessesRemainingText.textContent = (guessesRemaining);
 }
 
-//pick chosen word and convert it to underscores 
 
 
-console.log(chosenWord.length);
 
-for(var i =0; i< underScoreCount; i++){
-    placeholder += "_"
-    docUnderscore.textContent = (placeholder);
-    console.log(placeholder);
-    
-
-
+for(let i = 0; i < chosenWord.length; i++){
+    hiddenArray.push('_');
 }
-
-String.prototype.replaceAt = function (index, replacement) {
-    return this.substr(0, index) + replacement + this.substr(index + replacement.length);
-}
+let underScore = hiddenArray.join('');
+docUnderscore.textContent = underScore;
 
 //create on key event that captures user input 
 
 document.onkeyup = function(){
     let userGuess = event.key; 
     console.log (userGuess);
-    docUnderscore.textContent = (i, userGuess);
+    for(var i =0; i< chosenWord.length; i++){
+        if(userGuess === chosenWord[i]){
+            hiddenArray[i]= userGuess;
+            underScore = hiddenArray.join('');
+            docUnderscore.textContent = underScore;
+        }
+    }
 // if user is right     
     if (chosenWord.indexOf(userGuess) > -1){
         rightLetter.push(userGuess);
         
         console.log(rightLetter);
         //if user guesses entire word right 
-        for(var i = 0; i < chosenWord.length; i++){
-            docUnderscore.textContent=(rightLetter);
+        
+        if(userGuess === usedLetters[i]){
+            alert('You have already used this')
         }
+              
+        
         if (chosenWord === rightLetter.join('') && guessesRemaining >= 0) {
             winGame(); 
             newGame();
@@ -92,15 +91,15 @@ document.onkeyup = function(){
         //push to letters to used letters array
         usedLetters.push(wrongLetter);
         document.getElementById('used-letters').textContent = (wrongLetter);
-
+        
 
         guessesRemaining--;
         //display to dom 
-        document.getElementById('guesses-remaining').textContent = (guessesRemaining);
+        guessesRemainingText.textContent = (guessesRemaining);
     }
     if (guessesRemaining <= 0){
         loseGame();
-        newGame();
+        
     }
 
 }
