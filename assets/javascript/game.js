@@ -1,4 +1,4 @@
-const wordArray = ['metallica', 'megadeth', 'anthrax', 'slayer', 'testament', 'pantera', 'ozzy osbourne', 'black sabbath', 'motorhead', 'accept', 'exodus', 'venom', 'kreator', 'havok', "origin", "unearth", "devildriver", "municipal waste", "skeletonwitch", "power trip", "soulfly", "cannibal corpse"];
+const wordArray = ['metallica', 'megadeth', 'anthrax', 'slayer', 'testament', 'pantera', 'ozzy osbourne', 'black sabbath', 'motorhead', 'accept', 'exodus', 'deftones', 'kreator', 'havok', "origin", "unearth", "devildriver", "prong", "architects","skeletonwitch", "power trip", "soulfly", "sepultura","trivium","gojira", "mudvayne","periphery", "avenged sevenfold","parkway drive", "slipknot"];
 
 let chosenWord = wordArray[Math.floor(Math.random() * wordArray.length)]; 
     console.log(chosenWord); 
@@ -10,6 +10,7 @@ let usedLetters = [];
 let guessesRemaining = 6;  
 let rightLetter = [];
 let wrongLetter = []; 
+let music = new Audio("assets/audio/mm-mp3.mp3");
 let loseAudio = new Audio("assets/audio/evil.mp3");
  const userGuess = [];
 
@@ -39,6 +40,7 @@ const loseGame = () =>{
 const newGame = () =>{
     location.reload(); 
     guessesRemaining = 6;
+    music.play();
 }
 
 //guess counter function
@@ -73,6 +75,7 @@ document.onkeyup = function(){
         rightLetter.push(userGuess);
         
         console.log(rightLetter);
+        console.log(docUnderscore.innerHTML)
         //if user guesses entire word right 
         
         if(userGuess === usedLetters[i]){
@@ -80,9 +83,10 @@ document.onkeyup = function(){
         }
               
         
-        if (chosenWord === rightLetter.join('') && guessesRemaining >= 0) {
+        if (chosenWord === docUnderscore.innerHTML && guessesRemaining >= 0) {
+            console.log('win')
             winGame(); 
-            newGame();
+            // newGame();
         }
     }
     //if user is wrong
